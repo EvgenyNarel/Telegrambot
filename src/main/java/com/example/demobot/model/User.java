@@ -1,19 +1,28 @@
 package com.example.demobot.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     private Long id;
+
+    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "appointment_id")
+    private Set<Appointment> appointmentSet;
+
 
     private String userName;
 
@@ -25,18 +34,23 @@ public class User {
 
     private boolean presenceRecord = false;
 
-    private Timestamp dataAppointment;
+    private String address;
 
-    private Timestamp timeAppointment;
+    private String numberPhone;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", appointmentSet=" + appointmentSet +
                 ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", registered=" + registered +
+                ", registered=" + registered + '\'' +
+                ", presenceRecord=" + presenceRecord + '\'' +
+                ", address=" + address + '\'' +
+                ", numberPhone=" + numberPhone +
                 '}';
     }
+
 }
